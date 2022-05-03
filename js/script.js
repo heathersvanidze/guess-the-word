@@ -65,7 +65,26 @@ const makeGuess = function(guess){
     guess = guess.toUpperCase();
     if (guessedLetters.includes(guess)) {
         message.innerText = "You already guessed that letter!";
-    } else {guessedLetters.push(guess)};
-    console.log(guessedLetters);
+    } else {guessedLetters.push(guess);
+        console.log(guessedLetters);
+        showGuessedLetters();
+        };
+    ;
 
+};
+
+const showGuessedLetters = function(){
+    guessedLettersELement.innerHTML = "";
+    for (const letter of guessedLetters){
+        const li = document.createElement("li");
+        li.innterText = letter;
+        guessedLettersElement.append(li);
+    }
+};
+
+const updateWordInProgress = function(guessedLetters){
+    const wordUpper = word.toUpperCase();
+    const wordArray = wordUpper.split("");
+    console.log(wordArray);
+    //stopped after step 2 of part 2
 }
