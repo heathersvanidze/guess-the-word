@@ -40,9 +40,7 @@ guessButton.addEventListener("click", function(e){
     if (goodGuess) {
         makeGuess(guess);
     }
-
     textInput.value = "";
-
 });
 
 const validateInput = function(guess){
@@ -68,6 +66,7 @@ const makeGuess = function(guess){
     } else {guessedLetters.push(guess);
         console.log(guessedLetters);
         showGuessedLetters();
+        updateWordInProgress(guessedLetters);
         };
     ;
 
@@ -85,6 +84,19 @@ const showGuessedLetters = function(){
 const updateWordInProgress = function(guessedLetters){
     const wordUpper = word.toUpperCase();
     const wordArray = wordUpper.split("");
-    console.log(wordArray);
-    //stopped after step 2 of part 2
-}
+    const revealWord = [];
+    for (const letter of wordArray){
+        if (guessedLetters.includes(letter)){
+            revealWord.push(letter.toUpperCase());
+        } else {revealWord.push("●")}
+    }
+    wordInProgress.innerText = revealWord.join("");
+    checkIfWin();
+};
+
+const checkIfWin = function(){
+    if (wordInProgress.innerText === word.toUpperCase()) {
+        message.classList.add("win");
+        message.innerHTML = '<p class="highlight">You guessed the correct word! Congrats!</p>';
+    }
+};
