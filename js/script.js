@@ -9,7 +9,7 @@ const wordInProgress = document.querySelector(".word-in-progress");
 //paragraph where the remaining guesses will display.
 const remainingText = document.querySelector(".remaining");
 // span inside the paragraph where the remaining guesses will display.
-const remainingGuesses = document.querySelector(".remaining span");
+const remainingGuessesElement = document.querySelector(".remaining span");
 //empty paragraph where messages will appear when the player guesses a letter.
 const message = document.querySelector(".message");
 //hidden button that will appear prompting the player to play again.
@@ -18,6 +18,9 @@ const playAgainButton = document.querySelector(".play-again-hide");
 const word = "magnolia";
 //Array to collect already-guessed letters
 const guessedLetters = [];
+
+let remainingGuesses = 8;
+
 //Displays circle placeholders
 const placeholder = function(word){
     const placeholderLetters = [];
@@ -66,6 +69,7 @@ const makeGuess = function(guess){
     } else {guessedLetters.push(guess);
         console.log(guessedLetters);
         showGuessedLetters();
+        countRemainingGuesses(guess);
         updateWordInProgress(guessedLetters);
         };
     ;
@@ -76,7 +80,7 @@ const showGuessedLetters = function(){
     guessedLettersElement.innerHTML = "";
     for (const letter of guessedLetters){
         const li = document.createElement("li");
-        li.innterText = letter;
+        li.innerText = letter;
         guessedLettersElement.append(li);
     }
 };
@@ -94,9 +98,29 @@ const updateWordInProgress = function(guessedLetters){
     checkIfWin();
 };
 
+const countRemainingGuesses = function(guess){
+    const upperWord = word.toUpperCase();
+    if (!upperWord.includes(guess)) {
+        message.innerText = `Sorry, no ${guess} in the word!`;
+        remainingGuesses -= 1;
+    } else {
+        message.innerText = `Good guess! The word does contain ${guess}!`;
+        
+    } 
+    if (remainingGuesses === 0){
+        message.innerHTML = `Game over! The word was <span class="highlight">${word}</span>.`;
+    } else if (remainingGuesses === 1) {
+        remainingGuessesElement.innerText = `${remainingGuesses} guess`;
+    } else if (remainingGuesses > 1){
+        remainingGuessesElement.innerText = `${remainingGuesses} guesses`;
+    }
+
+};
+
 const checkIfWin = function(){
     if (wordInProgress.innerText === word.toUpperCase()) {
         message.classList.add("win");
         message.innerHTML = '<p class="highlight">You guessed the correct word! Congrats!</p>';
     }
 };
+//Stopped before "Add an async function"
