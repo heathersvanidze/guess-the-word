@@ -73,7 +73,7 @@ const makeGuess = function(guess){
 };
 
 const showGuessedLetters = function(){
-    guessedLettersELement.innerHTML = "";
+    guessedLettersElement.innerHTML = "";
     for (const letter of guessedLetters){
         const li = document.createElement("li");
         li.innterText = letter;
