@@ -17,7 +17,7 @@ const playAgainButton = document.querySelector(".play-again");
 
 //let word = wordArray[randomIndex].trim();
 //Array to collect already-guessed letters
-const guessedLetters = [];
+let guessedLetters = [];
 
 let remainingGuesses = 8;
 
